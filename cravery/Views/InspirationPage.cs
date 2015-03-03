@@ -4,13 +4,13 @@ namespace cravery
 {
 	public class InspirationPage : ContentPage
 	{
-		FeedListView listView;
+		InspirationListView listView;
 
 		public InspirationPage ()
 		{
 			Title = "Inspiration";
 
-			listView = new FeedListView ();
+			listView = new InspirationListView ();
 
 			Content = new StackLayout {
 				Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0),

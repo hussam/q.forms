@@ -6,7 +6,7 @@ using cravery;
 using cravery.iOS;
 using CellSwipeGestureRecognition;
 
-[assembly: ExportRenderer(typeof(FeedCell), typeof(InspirationCellRenderer))]
+[assembly: ExportRenderer(typeof(InspirationCell), typeof(InspirationCellRenderer))]
 namespace cravery.iOS
 {
 	public class InspirationCellRenderer : ViewCellRenderer
@@ -38,7 +38,7 @@ namespace cravery.iOS
 				SwipeTableCellMode.Exit,
 				SwipeTableViewCellState.State1,
 				(_cell, state, mode) => {
-					((FeedCell) item).InterestedInActivity();
+					((InspirationCell) item).InterestedInActivity();
 				}
 			);
 
@@ -48,7 +48,7 @@ namespace cravery.iOS
 				SwipeTableCellMode.Exit,
 				SwipeTableViewCellState.State3,
 				(_cell, state, mode) => {
-					((FeedCell) item).NotInterestedInActivity();
+					((InspirationCell) item).NotInterestedInActivity();
 				}
 			);
 

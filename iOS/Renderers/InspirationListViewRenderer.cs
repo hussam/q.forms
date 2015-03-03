@@ -4,7 +4,7 @@ using cravery;
 using cravery.iOS;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRendererAttribute(typeof(FeedListView), typeof(InspirationListViewRenderer))]
+[assembly: ExportRendererAttribute(typeof(InspirationListView), typeof(InspirationListViewRenderer))]
 namespace cravery.iOS
 {
 	public class InspirationListViewRenderer : ListViewRenderer

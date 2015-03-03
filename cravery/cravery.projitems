@@ -22,8 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Installation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Recipe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\DebugPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FeedCell.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\FeedListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\RegistrationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataManagers\AccountManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataManagers\ActivitiesManager.cs" />
@@ -32,5 +30,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\InspirationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\InspirationListView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\InspirationCell.cs" />
   </ItemGroup>
 </Project>

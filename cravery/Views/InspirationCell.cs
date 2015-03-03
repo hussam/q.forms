@@ -2,9 +2,9 @@
 
 namespace cravery
 {
-	public class FeedCell : ViewCell
+	public class InspirationCell : ViewCell
 	{
-		public FeedCell ()
+		public InspirationCell ()
 		{
 			var image = new Image {
 				Aspect = Aspect.AspectFill,
