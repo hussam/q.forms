@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "_default": {
+            "link": "wim"
+        }, 
+        "wim": {
+            "applicationId": "kdY8lN9d4i4mhR4GJ09AxoIrFYb9Z4NFQUSAdZcc", 
+            "masterKey": "XM7u5JoTkY5IF8sz7fccag5YuAzB0wmWawDdfnIs"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.3"
+    }
+}
