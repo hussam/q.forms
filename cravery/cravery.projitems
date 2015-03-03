@@ -9,6 +9,5 @@
     <Import_RootNamespace>cravery</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)cravery.cs" />
   </ItemGroup>
 </Project>
