@@ -5,15 +5,13 @@ using Foundation;
 
 namespace cravery
 {
-	public class Settings
+	public static class Settings
 	{
 		internal static void Clear()
 		{
 			#if __IOS__
 			var defaults = NSUserDefaults.StandardUserDefaults;
 			defaults.RemoveObject("currentInstallation");
-			defaults.RemoveObject("contactsFetched");
-			defaults.RemoveObject("contactsAlertDisplayed");
 			#endif
 		}
 
@@ -28,34 +26,6 @@ namespace cravery
 			set {
 				#if __IOS__
 				NSUserDefaults.StandardUserDefaults.SetString(value, "currentInstallation");
-				#endif
-			}
-		}
-
-		public static bool ContactsFetched
-		{
-			get {
-				#if __IOS__
-				return NSUserDefaults.StandardUserDefaults.BoolForKey ("contactsFetched");
-				#endif
-			}
-			set {
-				#if __IOS__
-				NSUserDefaults.StandardUserDefaults.SetBool(value, "contactsFetched");
-				#endif
-			}
-		}
-
-		public static bool ContactsAlertDisplayed
-		{
-			get {
-				#if __IOS__
-				return NSUserDefaults.StandardUserDefaults.BoolForKey ("contactsAlertDisplayed");
-				#endif
-			}
-			set {
-				#if __IOS__
-				NSUserDefaults.StandardUserDefaults.SetBool(value, "contactsAlertDisplayed");
 				#endif
 			}
 		}
