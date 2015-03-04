@@ -13,7 +13,6 @@ namespace cravery
 			listView = new InspirationListView ();
 
 			Content = new StackLayout {
-				Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0),
 				Children = { listView }
 			};
 		}
