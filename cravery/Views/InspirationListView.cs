@@ -7,7 +7,7 @@ namespace cravery
 		public InspirationListView()
 		{
 			ItemTemplate = ItemTemplate = new DataTemplate (typeof(InspirationCell));
-			RowHeight = 120;
+			RowHeight = 160;
 		}
 	}
 }
