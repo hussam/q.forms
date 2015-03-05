@@ -32,5 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\InspirationListView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\InspirationCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\RecommendationPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CravingCell.cs" />
   </ItemGroup>
 </Project>

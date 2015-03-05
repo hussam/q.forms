@@ -1,14 +1,16 @@
-﻿using System;
+﻿using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Parse;
 using System.Threading.Tasks;
+using System;
 
 namespace cravery
 {
 	public static class ActivitiesManager
 	{
-		const int PAGINATION = 50;
+		const int PAGINATION = 10;
+		const int REFRESH_MARK = PAGINATION / 2;
 
 		static ObservableCollection<Recipe> inspiration = null;
 
@@ -19,7 +21,7 @@ namespace cravery
 				var results = await query.FindAsync ();
 				inspiration = new ObservableCollection<Recipe> (results);
 				inspiration.CollectionChanged += async (sender, e) => {
-					if (inspiration.Count == 25) {
+					if (inspiration.Count == REFRESH_MARK) {
 						query = query.Skip(PAGINATION);
 						var refresh = await query.FindAsync();
 						foreach (var recipe in refresh) {
@@ -51,6 +53,17 @@ namespace cravery
 				User = AccountManager.CurrentUser
 			};
 			await obj.SaveAsync ();
+		}
+
+		public static async Task<ObservableCollection<ActivityInterest>> GetLikedRecipes()
+		{
+			var query = new ParseQuery<ActivityInterest> ()
+				.Include ("recipe")
+				.WhereEqualTo ("user", AccountManager.CurrentUser)
+				.WhereGreaterThanOrEqualTo ("createdAt", DateTime.UtcNow - TimeSpan.FromHours (1))
+				.OrderByDescending ("createdAt");
+			var results = await query.FindAsync ();
+			return new ObservableCollection<ActivityInterest> (results);
 		}
 	}
 }

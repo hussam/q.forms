@@ -41,6 +41,7 @@ namespace cravery
 			MainPage = new TabbedPage {
 				Children = {
 					new InspirationPage {Icon = "world_times"},
+					new RecommendationPage(),
 					new DebugPage() { Icon = "sliders_up_2" }
 				},
 
