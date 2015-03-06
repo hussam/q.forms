@@ -166,6 +166,26 @@ Parse.Cloud.define("RegisterAndSendVerificationCode", function(request, response
 });
 
 
+Parse.Cloud.define("getRecommendation", function(request, response) {
+   var Recipe = Parse.Object.extend("Recipe");
+   var query = new Parse.Query(Recipe);
+   query.get("lGV4cXHbAR").then(function(recipe) {
+      response.success({
+         "profile" : {
+            "Chicken" : 0.73124,
+            "Pesto" : 0.499,
+            "Vegetable" : 0.303
+            },
+         "recipe" : recipe
+      });
+   }, function(error) {
+      response.error(error);
+   });
+   var Crawler = Parse.Object.extend("Crawler");
+
+});
+
+
 /******************
  * Yummly Crawler *
  ******************/

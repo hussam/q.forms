@@ -1,55 +1,52 @@
 ﻿using Xamarin.Forms;
+using Parse;
+using System.Collections.Generic;
 
 namespace cravery
 {
 	public class RecommendationPage : ContentPage
 	{
-		ListView cravingsList;
+		Label cravingProfile, recipeName;
+		Image recipePicture;
 
 		public RecommendationPage ()
 		{
 			Title = "Recommendations";
 
-			var ingredient1 = new Label {
-				Text = "Chicken - 73%"
-			};
-			var ingredient2 = new Label {
-				Text = "Pesto - 50%"
-			};
-			var ingredient3 = new Label {
-				Text = "Vegetable - 30%"
-			};
+			cravingProfile = new Label ();
+			recipeName = new Label ();
 
-			var suggestedRecipe = new Image {
-				HeightRequest = 120,
+			recipePicture = new Image {
 				Aspect = Aspect.AspectFill,
-				Source = "http://files.parsetfss.com/b980ac8f-cc75-47e8-878a-d54866ee1cb4/tfss-b8eff495-d560-4a3b-861f-93ed0d1a4587-recipe"
-			};
-
-			cravingsList = new ListView {
-				ItemTemplate = new DataTemplate (typeof(CravingCell)),
-				RowHeight = 40
+				VerticalOptions = LayoutOptions.FillAndExpand
 			};
 
 			Content = new StackLayout {
 				Padding = new Thickness(0, Device.OnPlatform(20,0,0), 0, 0),
+				VerticalOptions = LayoutOptions.FillAndExpand,
 				Children = {
 					new Label { Text = "Craving Profile", FontAttributes = FontAttributes.Bold },
-					ingredient1,
-					ingredient2,
-					ingredient3,
+					cravingProfile,
 					new Label { Text = "Suggested Recipe", FontAttributes = FontAttributes.Bold },
-					suggestedRecipe,
-					new Label { Text = "Based on these recent cravings", FontAttributes = FontAttributes.Bold },
-					cravingsList
+					recipeName,
+					recipePicture
 				}
 			};
 		}
 
-		protected async override void OnAppearing ()
+		protected override async void OnAppearing ()
 		{
 			base.OnAppearing ();
-			cravingsList.ItemsSource = await ActivitiesManager.GetLikedRecipes ();
+			var result = await ParseCloud.CallFunctionAsync<Dictionary<string, object>> ("getRecommendation", new Dictionary<string, object> ());
+
+			var recipe = (Recipe) result ["recipe"];
+			recipePicture.Source = recipe.Picture;
+			recipeName.Text = recipe.Name;
+
+			var profile = (Dictionary<string, object>)result ["profile"];
+			foreach (var k in profile.Keys) {
+				cravingProfile.Text += string.Format ("{0} - {1:P0}\n", k, (double) profile[k]);
+			}
 		}
 	}
 }
