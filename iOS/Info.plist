@@ -24,7 +24,7 @@
 	</array>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon-60@2x</string>
+		<string>crave_icon</string>
 		<string>Icon-60@3x</string>
 		<string>Icon-76</string>
 		<string>Icon-76@2x</string>
