@@ -1,9 +1,9 @@
 {
     "applications": {
         "_default": {
-            "link": "wim"
+            "link": "cravery"
         }, 
-        "wim": {
+        "cravery": {
             "applicationId": "kdY8lN9d4i4mhR4GJ09AxoIrFYb9Z4NFQUSAdZcc", 
             "masterKey": "XM7u5JoTkY5IF8sz7fccag5YuAzB0wmWawDdfnIs"
         }
