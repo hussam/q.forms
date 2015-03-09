@@ -14,6 +14,7 @@ namespace cravery
 		public CravingCreationPage ()
 		{
 			var prompt = new Label ();
+			var dismiss = new Label ();
 			entry = new StyledEntry ();
 			hashtag = new StyledEntry ();
 			counter = new Label ();
@@ -26,6 +27,18 @@ namespace cravery
 			prompt.BackgroundColor = highlightColor;
 			prompt.FontSize = 24;
 			prompt.Text = " WHAT ARE YOU CRAVING? ";
+
+			dismiss.HorizontalOptions = LayoutOptions.EndAndExpand;
+			dismiss.FontFamily = Settings.FontNameBold;
+			dismiss.FontSize = 24;
+			dismiss.TextColor = highlightColor.WithLuminosity(0.5).WithSaturation(0.5);
+			dismiss.Text = "X";
+			dismiss.XAlign = TextAlignment.End;
+			dismiss.GestureRecognizers.Add (
+				new TapGestureRecognizer {
+					Command = new Command (() => Navigation.PopModalAsync ())
+				}
+			);
 
 			entry.FontSize = 24;
 			entry.LeftSpacing = 20;
@@ -73,11 +86,17 @@ namespace cravery
 				}
 			};
 
+			var topLayout = new StackLayout {
+				Orientation = StackOrientation.Horizontal,
+				Spacing = 20,
+				Children = { prompt, dismiss }
+			};
+					
 			Content = new StackLayout {
 				Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 10, 0),
 				Spacing = 10,
 				Children = {
-					prompt,
+					topLayout,
 					entry,
 					hashtagLayout
 				}
