@@ -35,5 +35,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\RecommendationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\CravingCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\PercentBar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\CravingCreationPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StyledEntry.cs" />
   </ItemGroup>
 </Project>

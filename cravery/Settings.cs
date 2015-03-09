@@ -29,6 +29,44 @@ namespace cravery
 				#endif
 			}
 		}
+
+		public static string FontName
+		{
+			get {
+				#if __IOS__
+				return "AvenirNextCondensed-Medium";
+				#endif
+			}
+		}
+
+		public static string FontNameItalic
+		{
+			get {
+				#if __IOS__
+				return "AvenirNextCondensed-MediumItalic";
+				#endif
+			}
+		}
+
+
+
+		public static string FontNameBold
+		{
+			get {
+				#if __IOS__
+				return "AvenirNextCondensed-DemiBold";
+				#endif
+			}
+		}
+
+		public static string FontNameBoldItalic
+		{
+			get {
+				#if __IOS__
+				return "AvenirNextCondensed-DemiBoldItalic";
+				#endif
+			}
+		}
 	}
 }
 

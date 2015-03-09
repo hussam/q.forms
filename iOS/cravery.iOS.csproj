@@ -147,6 +147,7 @@
     <Compile Include="CellSwipeGestureRecognizer.cs" />
     <Compile Include="Renderers\InspirationCellRenderer.cs" />
     <Compile Include="Renderers\InspirationListViewRenderer.cs" />
+    <Compile Include="Renderers\StyledEntryRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="ITunesArtwork" />
