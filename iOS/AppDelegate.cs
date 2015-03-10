@@ -18,7 +18,7 @@ namespace cravery.iOS
 			LoadApplication (new App ());
 
 			// Process any potential notification data from launch
-			ProcessNotification (options, true);
+			//ProcessNotification (options, true);
 
 			return base.FinishedLaunching (app, options);
 		}
