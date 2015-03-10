@@ -20,6 +20,7 @@ namespace cravery
 			ParseObject.RegisterSubclass<Installation> ();
 			ParseClient.Initialize ("kdY8lN9d4i4mhR4GJ09AxoIrFYb9Z4NFQUSAdZcc", "1qWHpwLM979tZEo1kpXXZ47a1c8wEhQCJ0ROPGSj");
 
+			/*
 			var storedInstallation = Settings.InstallationID;
 			if (storedInstallation != null) {
 				Installation = ParseObject.CreateWithoutData<Installation> (storedInstallation);
@@ -32,12 +33,15 @@ namespace cravery
 				//AppDelegate.RegisterForNotifications();
 				#endif
 			}
+			*/
 		}
 
 		public App()
 		{
 			Init ();
+			MainPage = new MainPage ();
 
+			/*
 			MainPage = new TabbedPage {
 				Children = {
 					new InspirationPage {Icon = "world_times"},
@@ -50,6 +54,7 @@ namespace cravery
 			if (!AccountManager.IsLoggedIn) {
 				MainPage.Navigation.PushModalAsync (new RegistrationPage ());
 			}
+			*/
 		}
 	}
 }

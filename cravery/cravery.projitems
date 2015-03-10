@@ -37,5 +37,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\PercentBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\CravingCreationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\StyledEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.cs" />
   </ItemGroup>
 </Project>
