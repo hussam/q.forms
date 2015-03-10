@@ -71,6 +71,7 @@ namespace cravery
 
 			var hashtagLayout = new StackLayout {
 				Orientation = StackOrientation.Horizontal,
+				Padding = new Thickness(0,0,0,40),
 				Children = {
 					new Label {
 						HorizontalOptions = LayoutOptions.Start,
@@ -91,6 +92,26 @@ namespace cravery
 				Spacing = 20,
 				Children = { prompt, dismiss }
 			};
+
+			var save = new Label ();
+			save.HorizontalOptions = LayoutOptions.End;
+			save.FontFamily = Settings.FontNameBoldItalic;
+			save.FontSize = 24;
+			save.BackgroundColor = highlightColor;
+			save.Text = "SAVE IT!";
+			save.WidthRequest = 160;
+			save.XAlign = TextAlignment.Center;
+			save.GestureRecognizers.Add (
+				new TapGestureRecognizer {
+					Command = new Command ((obj) => {
+						App.Database.SaveCraving( new Craving {
+							Text = entry.Text,
+							Hashtag = hashtag.Text
+						});
+						Navigation.PopModalAsync ();
+					})
+				}
+			);
 					
 			Content = new StackLayout {
 				Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 10, 0),
@@ -98,7 +119,8 @@ namespace cravery
 				Children = {
 					topLayout,
 					entry,
-					hashtagLayout
+					hashtagLayout,
+					save
 				}
 			};
 		}

@@ -38,5 +38,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\CravingCreationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\StyledEntry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataManagers\CravingDatabase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DBItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Craving.cs" />
   </ItemGroup>
 </Project>

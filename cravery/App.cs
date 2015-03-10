@@ -1,6 +1,5 @@
-﻿using System;
-using Xamarin.Forms;
-using Parse;
+﻿using System.IO;
+using System;
 
 #if __IOS__
 using cravery.iOS;
@@ -11,16 +10,23 @@ namespace cravery
 	public class App : Xamarin.Forms.Application
 	{
 		public static Installation Installation { get; set; }
+		public static CravingDatabase Database;
 
-		public static void Init ()
+		public static async void Init (string cacheFolder)
 		{
+			Console.WriteLine (cacheFolder);
+			Database = new CravingDatabase (Path.Combine(cacheFolder, "cache.db3"));
+			await Database.CreateTable ();
+
+
+			/*
 			ParseObject.RegisterSubclass<User> ();
 			ParseObject.RegisterSubclass<Recipe> ();
 			ParseObject.RegisterSubclass<ActivityInterest> ();
 			ParseObject.RegisterSubclass<Installation> ();
 			ParseClient.Initialize ("kdY8lN9d4i4mhR4GJ09AxoIrFYb9Z4NFQUSAdZcc", "1qWHpwLM979tZEo1kpXXZ47a1c8wEhQCJ0ROPGSj");
 
-			/*
+
 			var storedInstallation = Settings.InstallationID;
 			if (storedInstallation != null) {
 				Installation = ParseObject.CreateWithoutData<Installation> (storedInstallation);
@@ -38,7 +44,6 @@ namespace cravery
 
 		public App()
 		{
-			Init ();
 			MainPage = new MainPage ();
 
 			/*

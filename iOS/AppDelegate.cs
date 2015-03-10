@@ -13,6 +13,10 @@ namespace cravery.iOS
 	{
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
+			// Get Caches Folder
+			var cacheFolder = NSFileManager.DefaultManager.GetUrls (NSSearchPathDirectory.CachesDirectory, NSSearchPathDomain.User) [0];
+			App.Init (cacheFolder.AbsoluteString);
+
 			global::Xamarin.Forms.Forms.Init ();
 
 			LoadApplication (new App ());

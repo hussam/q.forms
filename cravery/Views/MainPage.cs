@@ -1,18 +1,24 @@
 ﻿using System;
 using Xamarin.Forms;
+using System.Collections.ObjectModel;
 
 namespace cravery
 {
 	public class MainPage : ContentPage
 	{
+		const string MenuArrow = " ▾";
+
 		public string ContentTitle { get; set; }
+		ListView cravings;
+
+		public ObservableCollection<Craving> Cravings {get; set;}
 
 		public MainPage ()
 		{
-			ContentTitle = "Feed ▾";
+			ContentTitle = "Feed";
 
 			var titleLabel = new Label {
-				Text = ContentTitle,
+				Text = ContentTitle + MenuArrow,
 				TextColor = Color.White,
 				FontFamily = Settings.FontNameBold,
 				FontSize = 24,
@@ -43,10 +49,19 @@ namespace cravery
 				Children = {titleLabel, create}
 			};
 
+			cravings = new ListView ();
+			cravings.ItemTemplate = new DataTemplate (typeof(TextCell));
+			cravings.ItemTemplate.SetBinding (TextCell.TextProperty, "Text");
+			cravings.ItemTemplate.SetBinding (TextCell.DetailProperty, "Hashtag");
+			App.Database.GetCravings().ContinueWith(t =>
+				cravings.ItemsSource = t.Result
+			);
+
 			Content = new StackLayout {
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				Children = {
-					topNav
+					topNav,
+					cravings
 				}
 			};
 		}
