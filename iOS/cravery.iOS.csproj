@@ -135,6 +135,7 @@
     <BundleResource Include="Resources\sliders_up_2%402x.png" />
     <BundleResource Include="Resources\world_times%402x.png" />
     <BundleResource Include="Resources\crave_icon.png" />
+    <BundleResource Include="Resources\Q-Icon%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
