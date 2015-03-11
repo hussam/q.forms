@@ -3,7 +3,7 @@ using Foundation;
 #endif
 
 
-namespace cravery
+namespace Q
 {
 	public static class Settings
 	{

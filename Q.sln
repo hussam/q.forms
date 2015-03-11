@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "cravery", "cravery\cravery.shproj", "{2D4AB8BA-9CE2-443A-A5C3-03ED7F6AEF30}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Q", "core\Q.shproj", "{2D4AB8BA-9CE2-443A-A5C3-03ED7F6AEF30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cravery.iOS", "iOS\cravery.iOS.csproj", "{721D4EBC-B094-4131-A974-40358A8C5DFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q.iOS", "iOS\Q.iOS.csproj", "{721D4EBC-B094-4131-A974-40358A8C5DFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cravery.Droid", "Droid\cravery.Droid.csproj", "{B46EC40D-8DC8-4D93-8189-49B8DEF7813A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Q.Droid", "Droid\Q.Droid.csproj", "{B46EC40D-8DC8-4D93-8189-49B8DEF7813A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

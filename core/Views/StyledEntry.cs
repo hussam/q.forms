@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace cravery
+namespace Q
 {
 	public class StyledEntry : Entry
 	{

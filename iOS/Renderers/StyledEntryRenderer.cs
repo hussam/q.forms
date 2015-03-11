@@ -2,12 +2,12 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-using cravery;
-using cravery.iOS;
+using Q;
+using Q.iOS;
 using CoreAnimation;
 
 [assembly: ExportRendererAttribute(typeof(StyledEntry), typeof(StyledEntryRenderer))]
-namespace cravery.iOS
+namespace Q.iOS
 {
 	public class StyledEntryRenderer : EntryRenderer
 	{

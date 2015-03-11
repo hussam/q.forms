@@ -2,7 +2,7 @@
 using Parse;
 using System.Collections.Generic;
 
-namespace cravery
+namespace Q
 {
 	[ParseClassName("_Installation")]
 	public class Installation : ParseObject
@@ -74,10 +74,10 @@ namespace cravery
 
 
 		[ParseFieldName("owner")]
-		public User Owner
+		public ParseUser Owner
 		{
-			get { return GetProperty<User> (); }
-			set { SetProperty<User> (value); }
+			get { return GetProperty<ParseUser> (); }
+			set { SetProperty<ParseUser> (value); }
 		}
 	}
 }

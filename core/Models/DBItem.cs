@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace cravery
+namespace Q
 {
 	public class DBItem
 	{

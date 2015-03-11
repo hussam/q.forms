@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -37,23 +35,23 @@
 		<string>Default-Portrait</string>
 		<string>Default-Portrait@2x</string>
 		<string>Icon-Small-40</string>
-		<string>Icon-Small-40@2x</string>
+		<string>SearchIcon</string>
 		<string>Icon-Small-40@3x</string>
-		<string>Icon-Small</string>
-		<string>Icon-Small@2x</string>
 		<string>Icon-Small@3x</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>CFBundleDisplayName</key>
-	<string>Cravery</string>
 	<key>CFBundleIdentifier</key>
-	<string>io.imminent.cravery</string>
+	<string>io.imminent.q</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleBlackTranslucent</string>
+	<key>CFBundleDisplayName</key>
+	<string>Queue</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.1</string>
 </dict>
 </plist>

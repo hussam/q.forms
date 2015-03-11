@@ -1,6 +1,6 @@
-﻿namespace cravery
+﻿namespace Q
 {
-	public class Craving : DBItem
+	public class QItem : DBItem
 	{
 		public string Text { get; set; }
 		public string Hashtag { get; set; }

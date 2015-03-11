@@ -2,16 +2,16 @@
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 
-namespace cravery
+namespace Q
 {
 	public class MainPage : ContentPage
 	{
 		const string MenuArrow = " ▾";
 
 		public string ContentTitle { get; set; }
-		ListView cravings;
+		ListView qItems;
 
-		public ObservableCollection<Craving> Cravings {get; set;}
+		public ObservableCollection<QItem> QItems {get; set;}
 
 		public MainPage ()
 		{
@@ -37,7 +37,7 @@ namespace cravery
 				XAlign = TextAlignment.End
 			};
 			create.GestureRecognizers.Add( new TapGestureRecognizer {
-				Command = new Command(() => Navigation.PushModalAsync(new CravingCreationPage()))
+				Command = new Command(() => Navigation.PushModalAsync(new QItemCreationPage()))
 			});
 			AbsoluteLayout.SetLayoutFlags (create, AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.HeightProportional);
 			AbsoluteLayout.SetLayoutBounds (create, new Rectangle (1, 0, 20, 1));
@@ -49,19 +49,19 @@ namespace cravery
 				Children = {titleLabel, create}
 			};
 
-			cravings = new ListView ();
-			cravings.ItemTemplate = new DataTemplate (typeof(TextCell));
-			cravings.ItemTemplate.SetBinding (TextCell.TextProperty, "Text");
-			cravings.ItemTemplate.SetBinding (TextCell.DetailProperty, "Hashtag");
-			App.Database.GetCravings().ContinueWith(t =>
-				cravings.ItemsSource = t.Result
+			qItems = new ListView ();
+			qItems.ItemTemplate = new DataTemplate (typeof(TextCell));
+			qItems.ItemTemplate.SetBinding (TextCell.TextProperty, "Text");
+			qItems.ItemTemplate.SetBinding (TextCell.DetailProperty, "Hashtag");
+			App.Database.GetItems().ContinueWith(t =>
+				qItems.ItemsSource = t.Result
 			);
 
 			Content = new StackLayout {
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				Children = {
 					topNav,
-					cravings
+					qItems
 				}
 			};
 		}

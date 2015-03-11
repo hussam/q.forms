@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace cravery.iOS
+namespace Q.iOS
 {
 	public class Application
 	{

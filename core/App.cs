@@ -2,20 +2,20 @@
 using System;
 
 #if __IOS__
-using cravery.iOS;
+using Q.iOS;
 #endif
 
-namespace cravery
+namespace Q
 {
 	public class App : Xamarin.Forms.Application
 	{
 		public static Installation Installation { get; set; }
-		public static CravingDatabase Database;
+		public static QItemDatabase Database;
 
 		public static async void Init (string cacheFolder)
 		{
 			Console.WriteLine (cacheFolder);
-			Database = new CravingDatabase (Path.Combine(cacheFolder, "cache.db3"));
+			Database = new QItemDatabase (Path.Combine(cacheFolder, "cache.db3"));
 			await Database.CreateTable ();
 
 
@@ -45,21 +45,6 @@ namespace cravery
 		public App()
 		{
 			MainPage = new MainPage ();
-
-			/*
-			MainPage = new TabbedPage {
-				Children = {
-					new InspirationPage {Icon = "world_times"},
-					new RecommendationPage(),
-					new DebugPage() { Icon = "sliders_up_2" }
-				},
-
-			};
-
-			if (!AccountManager.IsLoggedIn) {
-				MainPage.Navigation.PushModalAsync (new RegistrationPage ());
-			}
-			*/
 		}
 	}
 }

@@ -2,54 +2,54 @@ using SQLite;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 
-namespace cravery {
+namespace Q {
 	/// <summary>
 	/// CacheDB builds on SQLite.Net and represents the app's core db.
 	/// It contains methods for retrieval and persistance as well as db creation, all based on the 
 	/// underlying ORM.
 	/// </summary>
-	public class CravingDatabase : SQLiteAsyncConnection  {
+	public class QItemDatabase : SQLiteAsyncConnection  {
 		object locker = new object ();
 
-		public static ObservableCollection<Craving> Cravings { get; set; }
+		public static ObservableCollection<QItem> QItems { get; set; }
 
 		/// <summary>
-		/// Initializes a new instance of the Craving Database. 
+		/// Initializes a new instance of the Q Item Database. 
 		/// if the database doesn't exist, it will create the database and all the tables.
 		/// </summary>
 		/// <param name='path'>
 		/// Path.
 		/// </param>
-		public CravingDatabase(string path) : base(path)
+		public QItemDatabase(string path) : base(path)
 		{
 		}
 
 		public Task<CreateTablesResult> CreateTable()
 		{
 			lock (locker) {
-				return CreateTableAsync<Craving> ();
+				return CreateTableAsync<QItem> ();
 			}
 		}
 
-		public Task<ObservableCollection<Craving>> GetCravings ()
+		public Task<ObservableCollection<QItem>> GetItems ()
 		{
-			AsyncTableQuery<Craving> table;
+			AsyncTableQuery<QItem> table;
 			lock (locker) {
-				table = Table<Craving> ().OrderByDescending<int> (c => c.LocalId);
+				table = Table<QItem> ().OrderByDescending<int> (c => c.LocalId);
 			}
 			return table.ToListAsync ().ContinueWith (t => {
-				Cravings = new ObservableCollection<Craving> (t.Result);
-				return Cravings;
+				QItems = new ObservableCollection<QItem> (t.Result);
+				return QItems;
 			});
 		}
 
-		public void SaveCraving(Craving craving)
+		public void SaveItem(QItem item)
 		{
 			Task<int> task;
 			lock (locker) {
-				task = InsertAsync (craving);
+				task = InsertAsync (item);
 			}
-			task.ContinueWith (t => Cravings.Insert (0, craving));
+			task.ContinueWith (t => QItems.Insert (0, item));
 		}
 	}
 }

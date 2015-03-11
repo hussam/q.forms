@@ -1,9 +1,9 @@
 ﻿using Xamarin.Forms;
 using System;
 
-namespace cravery
+namespace Q
 {
-	public class CravingCreationPage : ContentPage
+	public class QItemCreationPage : ContentPage
 	{
 		readonly StyledEntry entry, hashtag;
 		readonly Label counter;
@@ -11,7 +11,7 @@ namespace cravery
 		Color[] colors = { Color.Aqua, Color.Blue, Color.Fuchsia, Color.Green, Color.Lime, Color.Maroon, Color.Navy, Color.Olive, Color.Pink, Color.Purple, Color.Red, Color.Teal, Color.Yellow };
 		private static Color HashtagColor = Color.FromHex("FFD300");
 
-		public CravingCreationPage ()
+		public QItemCreationPage ()
 		{
 			var prompt = new Label ();
 			var dismiss = new Label ();
@@ -104,7 +104,7 @@ namespace cravery
 			save.GestureRecognizers.Add (
 				new TapGestureRecognizer {
 					Command = new Command ((obj) => {
-						App.Database.SaveCraving( new Craving {
+						App.Database.SaveItem( new QItem {
 							Text = entry.Text,
 							Hashtag = hashtag.Text
 						});
