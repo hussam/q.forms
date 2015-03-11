@@ -24,7 +24,7 @@ namespace Q
 			ParseObject.RegisterSubclass<Recipe> ();
 			ParseObject.RegisterSubclass<ActivityInterest> ();
 			ParseObject.RegisterSubclass<Installation> ();
-			ParseClient.Initialize ("kdY8lN9d4i4mhR4GJ09AxoIrFYb9Z4NFQUSAdZcc", "1qWHpwLM979tZEo1kpXXZ47a1c8wEhQCJ0ROPGSj");
+			ParseClient.Initialize("CMqy2LTcmnriJJXbFKuJJjpykJ66DPApFeQGAC5A", "ujucyDXCXn6z4E9wvQJNib6SyhKfuAjpqkzM2J88");
 
 
 			var storedInstallation = Settings.InstallationID;
