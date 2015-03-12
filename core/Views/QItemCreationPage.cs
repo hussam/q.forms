@@ -72,11 +72,11 @@ namespace Q
 
 			var hashtagLayout = new StackLayout {
 				Orientation = StackOrientation.Horizontal,
-				Padding = new Thickness(0,0,10,40),
+				Padding = new Thickness(10,0,10,40),
 				Children = {
 					new Label {
 						HorizontalOptions = LayoutOptions.Start,
-						Text = " #",
+						Text = "#",
 						TextColor = HashtagColor,
 						FontFamily = Settings.FontNameBold,
 						FontSize = 40,
