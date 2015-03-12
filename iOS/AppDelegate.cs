@@ -13,9 +13,9 @@ namespace Q.iOS
 	{
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			// Get Caches Folder
-			var cacheFolder = NSFileManager.DefaultManager.GetUrls (NSSearchPathDirectory.CachesDirectory, NSSearchPathDomain.User) [0];
-			App.Init (cacheFolder.AbsoluteString);
+			// store the database in the Application Support folder
+			var appSupportDir = NSFileManager.DefaultManager.GetUrls (NSSearchPathDirectory.ApplicationSupportDirectory, NSSearchPathDomain.User) [0];
+			App.Init (appSupportDir.Path);
 
 			global::Xamarin.Forms.Forms.Init ();
 

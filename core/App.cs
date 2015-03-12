@@ -12,12 +12,14 @@ namespace Q
 		public static Installation Installation { get; set; }
 		public static QItemDatabase Database;
 
-		public static async void Init (string cacheFolder)
+		public static async void Init (string dbPath)
 		{
-			Console.WriteLine (cacheFolder);
-			Database = new QItemDatabase (Path.Combine(cacheFolder, "cache.db3"));
+			#if DEBUG
+			Console.WriteLine(dbPath);
+			#endif
+			Directory.CreateDirectory (dbPath);
+			Database = new QItemDatabase (Path.Combine(dbPath, "queue.db3"));
 			await Database.CreateTable ();
-
 
 			/*
 			ParseObject.RegisterSubclass<User> ();
