@@ -33,7 +33,8 @@ namespace Q
 			dismiss.FontSize = 24;
 			dismiss.TextColor = highlightColor.WithLuminosity(0.5).WithSaturation(0.5);
 			dismiss.Text = "X";
-			dismiss.XAlign = TextAlignment.End;
+			dismiss.XAlign = TextAlignment.Center;
+			dismiss.WidthRequest = 40;
 			dismiss.GestureRecognizers.Add (
 				new TapGestureRecognizer {
 					Command = new Command (() => Navigation.PopModalAsync ())
@@ -71,7 +72,7 @@ namespace Q
 
 			var hashtagLayout = new StackLayout {
 				Orientation = StackOrientation.Horizontal,
-				Padding = new Thickness(0,0,0,40),
+				Padding = new Thickness(0,0,10,40),
 				Children = {
 					new Label {
 						HorizontalOptions = LayoutOptions.Start,
@@ -90,6 +91,7 @@ namespace Q
 			var topLayout = new StackLayout {
 				Orientation = StackOrientation.Horizontal,
 				Spacing = 20,
+				Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0),
 				Children = { prompt, dismiss }
 			};
 
@@ -114,7 +116,6 @@ namespace Q
 			);
 					
 			Content = new StackLayout {
-				Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 10, 0),
 				Spacing = 10,
 				Children = {
 					topLayout,
