@@ -95,7 +95,7 @@ namespace Q
 			};
 
 			string[] hashtags = { "Coffee", "Beer", "Drinks", "Brunch", "Lunch", "Dinner", "Movie", "Walk" };
-			hashtagsGrid = layoutOnGrid (hashtags, 3, 3);
+			hashtagsGrid = layoutOnGrid (hashtags, 3);
 
 			entryLayout = new StackLayout {
 				Orientation = StackOrientation.Vertical,
@@ -150,7 +150,7 @@ namespace Q
 			}
 		}
 
-		Grid layoutOnGrid(string[] hashtags, int row, int columns)
+		Grid layoutOnGrid(string[] hashtags, int columns)
 		{
 			var grid = new Grid ();
 			var buttons = new Button[hashtags.Length];
@@ -171,16 +171,16 @@ namespace Q
 				};
 			}
 
-			for (var i = 0; i < row; i++) {
+			int rows = (hashtags.Length / columns) + (hashtags.Length % columns != 0 ? 1 : 0);
+			for (var i = 0; i < rows; i++) {
 				grid.RowDefinitions.Add (new RowDefinition ());
 			}
 			for (var i = 0; i < columns; i++) {
 				grid.ColumnDefinitions.Add (new ColumnDefinition ());
 			}
-				
 			for (var i = 0; i < buttons.Length; i++) {
-				int r = i / row;
-				int c = i % row;
+				int r = i / columns;
+				int c = i % columns;
 				grid.Children.Add (buttons [i], c, r);
 			}
 
