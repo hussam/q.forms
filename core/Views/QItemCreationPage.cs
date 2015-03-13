@@ -5,18 +5,21 @@ namespace Q
 {
 	public class QItemCreationPage : ContentPage
 	{
-		readonly StyledEntry entry, hashtag;
-		readonly Label counter;
+		readonly StyledEntry entry;
+		readonly Label counter, hashtag;
 
 		Color[] colors = { Color.Aqua, Color.Blue, Color.Fuchsia, Color.Green, Color.Lime, Color.Maroon, Color.Navy, Color.Olive, Color.Pink, Color.Purple, Color.Red, Color.Teal, Color.Yellow };
 		private static Color HashtagColor = Color.FromHex("FFD300");
+
+		Grid hashtagsGrid;
+		StackLayout mainLayout, entryLayout;
 
 		public QItemCreationPage ()
 		{
 			var prompt = new Label ();
 			var dismiss = new Label ();
+			hashtag = new Label ();
 			entry = new StyledEntry ();
-			hashtag = new StyledEntry ();
 			counter = new Label ();
 
 			var random = new Random ();
@@ -41,59 +44,29 @@ namespace Q
 				}
 			);
 
+			hashtag.FontSize = 28;
+			hashtag.FontFamily = Settings.FontNameBoldItalic;
+			hashtag.BackgroundColor = HashtagColor;
+			hashtag.YAlign = TextAlignment.Center;
+			hashtag.HorizontalOptions = LayoutOptions.Start;
+
 			entry.FontSize = 24;
-			entry.LeftSpacing = 20;
-			entry.Placeholder = "...";
+			entry.Placeholder = "...(optional)";
 			entry.MaxTextLength = 20;
 			entry.TintColor = highlightColor;
 			entry.ReturnKey = StyledEntry.KeyboardReturnKey.Next;
+			entry.HorizontalOptions = LayoutOptions.FillAndExpand;
 			entry.TextChanged += counterUpdater;
 			entry.Focused += (sender, e) => {
 				counterUpdater(sender, null);
 			};
 
 
-			hashtag.FontSize = 20;
-			hashtag.Placeholder = "_______";
-			hashtag.MaxTextLength = 10;
-			hashtag.TintColor = HashtagColor;
-			hashtag.ReturnKey = StyledEntry.KeyboardReturnKey.Done;
-			hashtag.HorizontalOptions = LayoutOptions.FillAndExpand;
-			hashtag.TextChanged += counterUpdater;
-			hashtag.Focused += (sender, e) => {
-				counterUpdater(sender, null);
-			};
-
 			counter.HorizontalOptions = LayoutOptions.End;
 			counter.FontFamily = Settings.FontNameBold;
 			counter.FontSize = 24;
 			counter.Text = entry.MaxTextLength.ToString ();
 			counter.YAlign = TextAlignment.Center;
-
-			var hashtagLayout = new StackLayout {
-				Orientation = StackOrientation.Horizontal,
-				Padding = new Thickness(10,0,10,40),
-				Children = {
-					new Label {
-						HorizontalOptions = LayoutOptions.Start,
-						Text = "#",
-						TextColor = HashtagColor,
-						FontFamily = Settings.FontNameBold,
-						FontSize = 40,
-						XAlign = TextAlignment.End,
-						YAlign = TextAlignment.End
-					},
-					hashtag,
-					counter
-				}
-			};
-
-			var topLayout = new StackLayout {
-				Orientation = StackOrientation.Horizontal,
-				Spacing = 20,
-				Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0),
-				Children = { prompt, dismiss }
-			};
 
 			var save = new Label ();
 			save.HorizontalOptions = LayoutOptions.End;
@@ -114,22 +87,48 @@ namespace Q
 					})
 				}
 			);
-					
-			Content = new StackLayout {
-				Spacing = 10,
+				
+			var topLayout = new StackLayout {
+				Orientation = StackOrientation.Horizontal,
+				Padding = new Thickness(0, Device.OnPlatform(20, 0, 0), 0, 0),
+				Children = { prompt, dismiss }
+			};
+
+			string[] hashtags = { "Coffee", "Beer", "Drinks", "Brunch", "Lunch", "Dinner", "Movie", "Walk" };
+			hashtagsGrid = layoutOnGrid (hashtags, 3, 3);
+
+			entryLayout = new StackLayout {
+				Orientation = StackOrientation.Vertical,
+				Padding = new Thickness(10, 0, 0, 0),
 				Children = {
-					topLayout,
-					entry,
-					hashtagLayout,
+					hashtag,
+					new StackLayout {
+						Orientation = StackOrientation.Horizontal,
+						Padding = new Thickness(10,0,10,80),
+						Children = {
+							new Label {
+								Text = "at",
+								FontFamily = Settings.FontNameBold,
+								FontSize = 20,
+								XAlign = TextAlignment.Center,
+								YAlign = TextAlignment.Center
+							},
+							entry,
+							counter
+						}
+					},
 					save
 				}
 			};
-		}
+					
+			mainLayout = new StackLayout {
+				Children = {
+					topLayout,
+					hashtagsGrid
+				}
+			};
 
-		protected override void OnAppearing ()
-		{
-			base.OnAppearing ();
-			entry.Focus ();
+			Content = mainLayout;
 		}
 
 		void counterUpdater (object sender, TextChangedEventArgs e)
@@ -149,6 +148,43 @@ namespace Q
 				counter.TextColor = Color.White;
 				counter.BackgroundColor = Color.Red.WithSaturation(0.5);
 			}
+		}
+
+		Grid layoutOnGrid(string[] hashtags, int row, int columns)
+		{
+			var grid = new Grid ();
+			var buttons = new Button[hashtags.Length];
+
+
+			for (var i = 0; i < hashtags.Length; i++) {
+				buttons[i] = new Button {
+					Text = hashtags[i],
+					FontFamily = Settings.FontName,
+					FontSize = 20,
+					TextColor = Color.Black
+				};
+				buttons[i].Clicked += (sender, e) => {
+					this.hashtag.Text = ((Button)sender).Text.ToUpper();
+					mainLayout.Children.Remove(grid);
+					mainLayout.Children.Add(entryLayout);
+					entry.Focus();
+				};
+			}
+
+			for (var i = 0; i < row; i++) {
+				grid.RowDefinitions.Add (new RowDefinition ());
+			}
+			for (var i = 0; i < columns; i++) {
+				grid.ColumnDefinitions.Add (new ColumnDefinition ());
+			}
+				
+			for (var i = 0; i < buttons.Length; i++) {
+				int r = i / row;
+				int c = i % row;
+				grid.Children.Add (buttons [i], c, r);
+			}
+
+			return grid;
 		}
 	}
 }
