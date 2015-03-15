@@ -131,7 +131,6 @@ namespace Q
 
 			QItems = await App.Database.GetItems ();
 			foreach (var q in QItems) {
-				Console.WriteLine("Adding {0} to {1}", q.Text, nextIndex);
 				QItemContainers[nextIndex].AddQItem(q);
 				nextIndex = ++nextIndex % 3;
 			}
