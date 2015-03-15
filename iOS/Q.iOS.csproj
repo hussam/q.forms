@@ -137,6 +137,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="CellSwipeGestureRecognizer.cs" />
     <Compile Include="Renderers\StyledEntryRenderer.cs" />
+    <Compile Include="Renderers\PagedScrollViewRenderer.cs" />
   </ItemGroup>
   <Import Project="..\core\q.projitems" Label="Shared" Condition="Exists('..\core\q.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

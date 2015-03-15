@@ -10,9 +10,11 @@ namespace Q
 		const string MenuArrow = "⌄";
 
 		public string ContentTitle { get; set; }
-		ListView qItems;
 
 		public ObservableCollection<QItem> QItems {get; set;}
+
+		int nextIndex;
+		QCardDeckView[] QItemContainers;
 
 		public MainPage ()
 		{
@@ -51,22 +53,88 @@ namespace Q
 				HeightRequest = 50,
 				Children = {titleLabel, create}
 			};
+					
 
-			qItems = new ListView ();
-			qItems.ItemTemplate = new DataTemplate (typeof(TextCell));
-			qItems.ItemTemplate.SetBinding (TextCell.TextProperty, "Text");
-			qItems.ItemTemplate.SetBinding (TextCell.DetailProperty, "Hashtag");
-			App.Database.GetItems().ContinueWith(t =>
-				qItems.ItemsSource = t.Result
-			);
+			QItemContainers = new QCardDeckView[3];
+			for (var i = 0; i < 3; i++) {
+				QItemContainers [i] = new QCardDeckView ();
+			}
+
+			nextIndex = 0;
+
+			/* XXX FIXME : I should be doing this instead of refreshing OnAppear()
+			App.Database.GetItems ().ContinueWith ((t) => {
+				nextIndex = 0;
+				QItems = t.Result;
+				foreach (var q in QItems) {
+					Console.WriteLine(q.Text);
+					QItemContainers[nextIndex].AddQItem(q);
+					nextIndex = ++nextIndex % 3;
+				}
+				QItems.CollectionChanged += (sender, e) => {
+					foreach (var item in e.NewItems) {
+						QItem q = (QItem) item;
+						Console.WriteLine("Adding {0} to {1}", q.Text, nextIndex);
+						QItemContainers[nextIndex].AddQItem(q);
+						nextIndex = ++nextIndex % 3;
+					}
+				};
+			});
+			*/
+			
 
 			Content = new StackLayout {
+				Padding = new Thickness(0,0,0,10),
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				Children = {
 					topNav,
-					qItems
+					new Label {
+						Text = "Now",
+						FontSize = 20,
+						FontFamily = Settings.FontName,
+						HeightRequest = 50,
+						YAlign = TextAlignment.End,
+						HorizontalOptions = LayoutOptions.Start
+					},
+					QItemContainers[0],
+
+					new Label {
+						Text = "Later",
+						FontSize = 20,
+						FontFamily = Settings.FontName,
+						HeightRequest = 50,
+						YAlign = TextAlignment.End,
+						HorizontalOptions = LayoutOptions.Start
+					},
+					QItemContainers[1],
+
+					new Label {
+						Text = "Much Later",
+						FontSize = 20,
+						FontFamily = Settings.FontName,
+						HeightRequest = 50,
+						YAlign = TextAlignment.End,
+						HorizontalOptions = LayoutOptions.Start
+					},
+					QItemContainers[2],
 				}
 			};
+		}
+
+		protected override async void OnAppearing ()
+		{
+			base.OnAppearing ();
+			// XXX HACK!!!
+			foreach (var qic in QItemContainers) {
+				qic.Clear ();
+			}
+
+			QItems = await App.Database.GetItems ();
+			foreach (var q in QItems) {
+				Console.WriteLine("Adding {0} to {1}", q.Text, nextIndex);
+				QItemContainers[nextIndex].AddQItem(q);
+				nextIndex = ++nextIndex % 3;
+			}
 		}
 	}
 }

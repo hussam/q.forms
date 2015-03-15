@@ -27,5 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\QItem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\QItemCreationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataManagers\QItemDatabase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\QCardDeckView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\QCardView.cs" />
   </ItemGroup>
 </Project>
