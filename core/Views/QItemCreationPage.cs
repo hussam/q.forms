@@ -31,7 +31,7 @@ namespace Q
 			prompt.FontFamily = Settings.FontNameItalic;
 			prompt.BackgroundColor = highlightColor;
 			prompt.FontSize = 24;
-			prompt.Text = " WHAT ARE YOU CRAVING? ";
+			prompt.Text = " REMIND ME TO GO FOR A ";
 
 			var dismiss = new Label ();
 			dismiss.HorizontalOptions = LayoutOptions.EndAndExpand;
