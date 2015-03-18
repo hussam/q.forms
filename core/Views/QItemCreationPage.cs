@@ -1,12 +1,17 @@
 ﻿using Xamarin.Forms;
 using System;
+using Q.Foursquare;
+using System.Collections.ObjectModel;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Q
 {
 	public class QItemCreationPage : ContentPage
 	{
-		readonly StyledEntry entry;
-		readonly Label counter, hashtag;
+		StyledEntry entry = new StyledEntry();
+		Label counter = new Label();
+		Label hashtag = new Label();
 
 		Color[] colors = { Color.Aqua, Color.Blue, Color.Fuchsia, Color.Green, Color.Lime, Color.Maroon, Color.Navy, Color.Olive, Color.Pink, Color.Purple, Color.Red, Color.Teal, Color.Yellow };
 		private static Color HashtagColor = Color.FromHex("FFD300");
@@ -14,23 +19,21 @@ namespace Q
 		Grid hashtagsGrid;
 		StackLayout mainLayout, entryLayout;
 
+		AutoSuggestionsView<Venue> suggestions;
+
 		public QItemCreationPage ()
 		{
-			var prompt = new Label ();
-			var dismiss = new Label ();
-			hashtag = new Label ();
-			entry = new StyledEntry ();
-			counter = new Label ();
-
 			var random = new Random ();
 			var highlightColor = colors [random.Next (0, colors.Length)].WithLuminosity(0.75);
 
+			var prompt = new Label ();
 			prompt.HorizontalOptions = LayoutOptions.Start;
 			prompt.FontFamily = Settings.FontNameItalic;
 			prompt.BackgroundColor = highlightColor;
 			prompt.FontSize = 24;
 			prompt.Text = " WHAT ARE YOU CRAVING? ";
 
+			var dismiss = new Label ();
 			dismiss.HorizontalOptions = LayoutOptions.EndAndExpand;
 			dismiss.FontFamily = Settings.FontNameBold;
 			dismiss.FontSize = 24;
@@ -57,16 +60,20 @@ namespace Q
 			entry.ReturnKey = StyledEntry.KeyboardReturnKey.Next;
 			entry.HorizontalOptions = LayoutOptions.FillAndExpand;
 			entry.TextChanged += counterUpdater;
-			entry.Focused += (sender, e) => {
-				counterUpdater(sender, null);
-			};
-
+			entry.TextChanged += fetchSuggestions;
 
 			counter.HorizontalOptions = LayoutOptions.End;
 			counter.FontFamily = Settings.FontNameBold;
 			counter.FontSize = 24;
 			counter.Text = entry.MaxTextLength.ToString ();
 			counter.YAlign = TextAlignment.Center;
+
+			suggestions = new AutoSuggestionsView<Venue> (3);
+			suggestions.SuggestionClicked += (suggestion) => {
+				counter.IsVisible = false;
+				entry.EnforceMaxTextLength = false;
+				entry.Text = ((Venue) suggestion).Name;
+			};
 
 			var save = new Label ();
 			save.HorizontalOptions = LayoutOptions.End;
@@ -104,7 +111,7 @@ namespace Q
 					hashtag,
 					new StackLayout {
 						Orientation = StackOrientation.Horizontal,
-						Padding = new Thickness(10,0,10,80),
+						Padding = new Thickness(10,0,10,0),
 						Children = {
 							new Label {
 								Text = "at",
@@ -117,6 +124,7 @@ namespace Q
 							counter
 						}
 					},
+					suggestions,
 					save
 				}
 			};
@@ -133,11 +141,14 @@ namespace Q
 
 		void counterUpdater (object sender, TextChangedEventArgs e)
 		{
-			var _sender = (StyledEntry)sender;
+			int remainingCharacters = entry.MaxTextLength;
+			if (entry.Text != null) {
+				remainingCharacters = entry.MaxTextLength - entry.Text.Length;
+			}
 
-			int remainingCharacters = _sender.MaxTextLength;
-			if (_sender.Text != null) {
-				remainingCharacters = _sender.MaxTextLength - _sender.Text.Length;
+			if (remainingCharacters >= 0) {
+				counter.IsVisible = true;
+				entry.EnforceMaxTextLength = true;
 			}
 
 			counter.Text = remainingCharacters.ToString();
@@ -147,6 +158,18 @@ namespace Q
 			} else {
 				counter.TextColor = Color.White;
 				counter.BackgroundColor = Color.Red.WithSaturation(0.5);
+			}
+		}
+
+		async void fetchSuggestions (object sender, TextChangedEventArgs e)
+		{
+			if (entry.Text != null && entry.Text.Length >= 3) {
+				var results = await FoursquareClient.SuggestCompletion (e.NewTextValue);
+				for (int i = 0; i < results.Count; i++) {
+					suggestions.SetAtIndex (i, results [i].Name, results [i].Location.Address + ", " + results [i].Location.City + " " + results [i].Location.State, results [i]);
+				}
+			} else {
+				suggestions.Clear ();
 			}
 		}
 

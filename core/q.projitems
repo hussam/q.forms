@@ -15,6 +15,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Views\" />
     <Folder Include="$(MSBuildThisFileDirectory)DataManagers\" />
     <Folder Include="$(MSBuildThisFileDirectory)Utilities\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Foursquare\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Installation.cs" />
@@ -29,5 +30,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataManagers\QItemDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\QCardDeckView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\QCardView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Foursquare\Location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Foursquare\Venue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Foursquare\FoursquareClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Foursquare\FoursquareResponse.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AutoSuggestionsView.cs" />
   </ItemGroup>
 </Project>
