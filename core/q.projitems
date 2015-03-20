@@ -35,5 +35,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Foursquare\FoursquareClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Foursquare\FoursquareResponse.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AutoSuggestionsView.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Foursquare\Photo.cs" />
   </ItemGroup>
 </Project>

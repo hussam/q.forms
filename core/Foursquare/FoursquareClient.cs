@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace Q.Foursquare
 {
@@ -27,6 +28,36 @@ namespace Q.Foursquare
 				}
 			});
 		}
+			
+		public static Task<List<Photo>> VenuePhotos (string venueId, int limit = 5)
+		{
+			var request = makeRequest ("venues/" + venueId + "/photos");
+			request.AddQueryParameter ("limit", limit.ToString ());
+
+			// TODO FIXME: This is extremely hacky, and will probably throw exceptions if photos don't exist ...etc.
+			return client.ExecuteGetTaskAsync<FoursquareResponse<Dictionary<string, object>>> (request).ContinueWith (t => {
+				var ret = new List<Photo>();
+
+				if (t.Result != null) {
+					Dictionary<string, object> photos = t.Result.Data.Response["photos"];
+					JsonArray items = (JsonArray) photos["items"];
+
+					foreach (var obj in items)
+					{
+						var photo_dict = (Dictionary<string, object>) obj;
+						var p = new Photo {
+							Id = photo_dict["id"].ToString(),
+							Prefix = photo_dict["prefix"].ToString(),
+							Suffix = photo_dict["suffix"].ToString()
+						};
+						ret.Add(p);
+					}
+					return ret;
+				} else {
+					return null;
+				}
+			});
+		}
 
 		static RestRequest makeRequest(string endpoint)
 		{
@@ -40,4 +71,3 @@ namespace Q.Foursquare
 		}
 	}
 }
-

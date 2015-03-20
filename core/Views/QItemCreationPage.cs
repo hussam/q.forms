@@ -21,6 +21,8 @@ namespace Q
 
 		AutoSuggestionsView<Venue> suggestions;
 
+		Venue selectedVenue;
+
 		public QItemCreationPage ()
 		{
 			var random = new Random ();
@@ -70,9 +72,11 @@ namespace Q
 
 			suggestions = new AutoSuggestionsView<Venue> (3);
 			suggestions.SuggestionClicked += (suggestion) => {
+				var venue = (Venue) suggestion;
 				counter.IsVisible = false;
 				entry.EnforceMaxTextLength = false;
-				entry.Text = ((Venue) suggestion).Name;
+				entry.Text = venue.Name;
+				selectedVenue = venue;
 			};
 
 			var save = new Label ();
@@ -86,10 +90,21 @@ namespace Q
 			save.GestureRecognizers.Add (
 				new TapGestureRecognizer {
 					Command = new Command ((obj) => {
-						App.Database.SaveItem( new QItem {
-							Text = entry.Text,
-							Hashtag = hashtag.Text
-						});
+						if (selectedVenue != null) {
+							FoursquareClient.VenuePhotos(selectedVenue.Id, 1).ContinueWith( t => {
+								App.Database.SaveItem( new QItem {
+									Text = entry.Text,
+									Hashtag = hashtag.Text,
+									VenueId = selectedVenue.Id,
+									PhotoUrl = t.Result[0].Url(500)
+								});
+							});
+						} else {
+							App.Database.SaveItem( new QItem {
+								Text = entry.Text,
+								Hashtag = hashtag.Text
+							});
+						}
 						Navigation.PopModalAsync ();
 					})
 				}
@@ -170,6 +185,7 @@ namespace Q
 				}
 			} else {
 				suggestions.Clear ();
+				selectedVenue = null;
 			}
 		}
 
