@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System;
+using Xamarin.Forms;
 
 #if __IOS__
 using Q.iOS;
@@ -18,7 +19,7 @@ namespace Q
 			Console.WriteLine(dbPath);
 			#endif
 			Directory.CreateDirectory (dbPath);
-			Database = new QItemDatabase (Path.Combine(dbPath, "queue.db3"));
+			Database = new QItemDatabase (Path.Combine(dbPath, "queue.sqlite"));
 			await Database.CreateTable ();
 
 			/*
